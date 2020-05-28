@@ -112,11 +112,8 @@ cvar_t *sv_wh_check_fov;
 cvar_t *sv_demopath;
 cvar_t *sv_demoState;
 cvar_t *sv_autoDemo;
-#ifdef DEDICATED
-cvar_t *cl_freezeDemo;  // to freeze server-side demos
-#else
-extern cvar_t *cl_freezeDemo;  // to freeze server-side demos
-#endif
+cvar_t *sv_freezeDemo;  // to freeze server-side demos
+
 cvar_t *sv_demoTolerant;
 
 cvar_t *sv_ipMaxClients;
@@ -248,7 +245,7 @@ void QDECL SV_SendServerCommand(client_t *cl, const char *fmt, ...)
 	}
 
 	// save broadcasts to demo
-	// note: in the case a command is only issued to a specific client, it is NOT recorded (see above when cl != NULL). 
+	// note: in the case a command is only issued to a specific client, it is NOT recorded (see above when cl != NULL).
 	// If you want to record them, just place this code above, but be warned that it may be dangerous (such as "disconnect" command)
 	// because server commands will be replayed to every connected clients!
 	//
@@ -312,9 +309,9 @@ void SV_MasterHeartbeat(const char *msg)
 	// "dedicated 1" is for lan play, "dedicated 2" is for inet public play
 	if (!com_dedicated || com_dedicated->integer != 2 || !(netenabled & (
 #ifdef FEATURE_IPV6
-	                                                           NET_ENABLEV6 |
+															   NET_ENABLEV6 |
 #endif
-	                                                           NET_ENABLEV4)))
+															   NET_ENABLEV4)))
 	{
 		return;     // only dedicated servers send heartbeats
 
@@ -437,9 +434,9 @@ void SV_MasterGameCompleteStatus()
 	// "dedicated 1" is for lan play, "dedicated 2" is for inet public play
 	if (!com_dedicated || com_dedicated->integer != 2 || !(netenabled & (
 #ifdef FEATURE_IPV6
-	                                                           NET_ENABLEV6 |
+															   NET_ENABLEV6 |
 #endif
-	                                                           NET_ENABLEV4)))
+															   NET_ENABLEV4)))
 	{
 		return;     // only dedicated servers send heartbeats
 
@@ -1203,10 +1200,10 @@ static void SV_ConnectionlessPacket(netadr_t from, msg_t *msg)
 
 	if (!Q_stricmp(c, "getstatus"))
 	{
-	    if(sv_hidden->integer)
-        {
-	        return;
-        }
+		if (sv_hidden->integer)
+		{
+			return;
+		}
 
 		if ((sv_protect->integer & SVP_OWOLF) && SV_CheckDRDoS(from))
 		{
@@ -1217,10 +1214,10 @@ static void SV_ConnectionlessPacket(netadr_t from, msg_t *msg)
 	}
 	else if (!Q_stricmp(c, "getinfo"))
 	{
-        if(sv_hidden->integer)
-        {
-            return;
-        }
+		if (sv_hidden->integer)
+		{
+			return;
+		}
 
 		if ((sv_protect->integer & SVP_OWOLF) && SV_CheckDRDoS(from))
 		{

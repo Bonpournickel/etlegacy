@@ -37,9 +37,8 @@
 
 // this is FEATURE_IRC_CLIENT and FEATURE_IRC_SERVER only
 
-//#include "../client/client.h"
+#include "../client/client.h"
 #include "htable.h"
-#include "irc_client.h"
 
 cvar_t *irc_mode;
 cvar_t *irc_server;
@@ -77,6 +76,14 @@ typedef int irc_socket_t;
 #  define INVALID_SOCKET (-1)
 # endif
 #endif
+
+cvar_t *irc_mode;
+cvar_t *irc_server;
+cvar_t *irc_channel;
+cvar_t *irc_port;
+cvar_t *irc_nickname;
+cvar_t *irc_kick_rejoin;
+cvar_t *irc_reconnect_delay;
 
 /*
  * Timing controls
@@ -2006,7 +2013,7 @@ static int IRC_ProcessData(void)
  */
 char *IRC_GetName(const char *name)
 {
-	int  i       = 0, j = 0, k = 0;
+	int  i = 0, j = 0, k = 0;
 	int  namelen = strlen(name);
 	char c;
 	char *retName;

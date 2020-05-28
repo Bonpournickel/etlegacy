@@ -2307,7 +2307,6 @@ void G_InitGame(int levelTime, int randomSeed, int restart, int etLegacyServer, 
 	char   cs[MAX_INFO_STRING];
 	time_t aclock;
 	char   timeFt[32];
-	char   *logDate;
 
 	// server version check
 	G_ServerCheck();
@@ -2946,7 +2945,7 @@ int QDECL SortRanks(const void *a, const void *b)
 		}
 
 		if (!((g_gametype.integer == GT_WOLF_CAMPAIGN && g_xpSaver.integer) ||
-			  (g_gametype.integer == GT_WOLF_CAMPAIGN && (g_campaigns[level.currentCampaign].current != 0 && !level.newCampaign)) ||
+		      (g_gametype.integer == GT_WOLF_CAMPAIGN && (g_campaigns[level.currentCampaign].current != 0 && !level.newCampaign)) ||
 		      (g_gametype.integer == GT_WOLF_LMS && g_currentRound.integer != 0)))
 		{
 			// current map XPs only
@@ -3763,7 +3762,8 @@ void G_LogExit(const char *string)
 			// record prestige before intermission
 			G_SetClientPrestige(ent->client, qtrue);
 		}
-	} else
+	}
+	else
 #endif
 	if (g_xpSaver.integer && g_gametype.integer == GT_WOLF_CAMPAIGN)
 	{

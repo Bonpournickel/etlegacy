@@ -76,6 +76,8 @@ hudStucture_t hudlist[MAXHUDS];
 hudStucture_t *activehud;
 hudStucture_t hud0;
 
+lagometer_t lagometer;
+
 /*
  * @brief CG_getRect
  * @param x
@@ -2222,7 +2224,7 @@ static void CG_DrawTimersAlt(rectDef_t *respawn, rectDef_t *spawntimer, rectDef_
 	qtime_t time;
 	vec4_t  color = { 0.625f, 0.625f, 0.6f, 1.0f };
 	int     tens;
-	int     msec    = (cgs.timelimit * 60000.f) - (cg.time - cgs.levelStartTime); // 60.f * 1000.f
+	int     msec = (cgs.timelimit * 60000.f) - (cg.time - cgs.levelStartTime);    // 60.f * 1000.f
 	int     secondsThen;
 	int     seconds = msec / 1000;
 	int     mins    = seconds / 60;

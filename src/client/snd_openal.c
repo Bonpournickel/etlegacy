@@ -55,6 +55,7 @@ cvar_t *s_alDevice;
 //cvar_t *s_alInputDevice;
 cvar_t *s_alAvailableDevices;
 //cvar_t *s_alAvailableInputDevices;
+
 extern cvar_t *s_debugStreams;
 
 static qboolean enumeration_ext     = qfalse;
@@ -2123,7 +2124,7 @@ static void S_AL_CloseSSFiles(int ss)
  */
 static void S_AL_StopStreamingSound(int ss)
 {
-    ssRestart[ss] = 0;
+	ssRestart[ss] = 0;
 	if (!ssPlaying[ss])
 	{
 		return;
@@ -2635,12 +2636,12 @@ static float S_AL_StartStreamingSoundEx(const char *intro, const char *loop, int
 		ssData[ss].stream = S_CodecOpenStream(loop);
 	}
 
-    if (!ssData[ss].stream)
-    {
-        Com_Printf(S_COLOR_YELLOW "WARNING S_AL_StartStreamingSoundEx: couldn't open stream file %s\n", intro);
-        S_AL_SSSourceFree(ss);
-        return 0.0f;
-    }
+	if (!ssData[ss].stream)
+	{
+		Com_Printf(S_COLOR_YELLOW "WARNING S_AL_StartStreamingSoundEx: couldn't open stream file %s\n", intro);
+		S_AL_SSSourceFree(ss);
+		return 0.0f;
+	}
 
 	// Generate the musicBuffers
 	qalGenBuffers(NUM_STREAM_BUFFERS, ssBuffers[ss]);
@@ -2871,12 +2872,12 @@ static void S_AL_SSUpdate(int ss)
 	if (state == AL_STOPPED && numBuffers)
 	{
 		Com_DPrintf(S_COLOR_YELLOW "Restarted OpenAL stream %d\n", ss);
-        ssRestart[ss]++;
-        if(ssRestart[ss] > 5)
-        {
-            S_AL_StopStreamingSound(ss);
-            return;
-        }
+		ssRestart[ss]++;
+		if (ssRestart[ss] > 5)
+		{
+			S_AL_StopStreamingSound(ss);
+			return;
+		}
 		qalSourcePlay(ssSource[ss]);
 	}
 
@@ -3279,7 +3280,7 @@ qboolean S_AL_Init(soundInterface_t *si)
 #ifdef FEATURE_OPENAL
 	const char *device = NULL;
 	//const char *inputdevice = NULL;
-	int        i;
+	int i;
 
 	if (!si)
 	{
@@ -3295,9 +3296,9 @@ qboolean S_AL_Init(soundInterface_t *si)
 		//streamNumBuffers[i]    = 0;
 		//streamBufIndex[i]      = 0;
 	}
-	
+
 	Com_Memset(ssRestart, 0, sizeof(ssRestart));
-	
+
 	// New console variables
 	s_alPrecache      = Cvar_Get("s_alPrecache", "1", CVAR_ARCHIVE);
 	s_alGain          = Cvar_Get("s_alGain", "1.0", CVAR_ARCHIVE);
@@ -3309,10 +3310,10 @@ qboolean S_AL_Init(soundInterface_t *si)
 	s_alRolloff       = Cvar_Get("s_alRolloff", "2", CVAR_CHEAT);
 	s_alGraceDistance = Cvar_Get("s_alGraceDistance", "1250", CVAR_CHEAT);
 
-	s_alDriver      = Cvar_Get("s_alDriver", ALDRIVER_DEFAULT, CVAR_ARCHIVE | CVAR_LATCH | CVAR_PROTECTED);
+	s_alDriver = Cvar_Get("s_alDriver", ALDRIVER_DEFAULT, CVAR_ARCHIVE | CVAR_LATCH | CVAR_PROTECTED);
 	//s_alInputDevice = Cvar_Get("s_alInputDevice", "", CVAR_ARCHIVE | CVAR_LATCH);
-	s_alDevice      = Cvar_Get("s_alDevice", "", CVAR_ARCHIVE | CVAR_LATCH);
-	s_debugStreams  = Cvar_Get("s_debugStreams", "0", CVAR_TEMP);
+	s_alDevice     = Cvar_Get("s_alDevice", "", CVAR_ARCHIVE | CVAR_LATCH);
+	s_debugStreams = Cvar_Get("s_debugStreams", "0", CVAR_TEMP);
 
 	if (COM_CompareExtension(s_alDriver->string, ".pk3"))
 	{
@@ -3493,7 +3494,7 @@ qboolean S_AL_Init(soundInterface_t *si)
 			capture_ext = qtrue;
 
 			// get all available input devices + the default input device name.
-			inputdevicelist = qalcGetString(NULL, ALC_CAPTURE_DEVICE_SPECIFIER);
+			inputdevicelist    = qalcGetString(NULL, ALC_CAPTURE_DEVICE_SPECIFIER);
 			defaultinputdevice = qalcGetString(NULL, ALC_CAPTURE_DEFAULT_DEVICE_SPECIFIER);
 
 			// dump a list of available devices to a cvar for the user to see.
@@ -3510,11 +3511,11 @@ qboolean S_AL_Init(soundInterface_t *si)
 			s_alAvailableInputDevices = Cvar_Get("s_alAvailableInputDevices", inputdevicenames, CVAR_ROM | CVAR_NORESTART);
 
 			Com_Printf("OpenAL default capture device is '%s'\n", defaultinputdevice ? defaultinputdevice : "none");
-			alCaptureDevice = qalcCaptureOpenDevice(inputdevice, 48000, AL_FORMAT_MONO16, VOIP_MAX_PACKET_SAMPLES*4);
-			if( !alCaptureDevice && inputdevice )
+			alCaptureDevice = qalcCaptureOpenDevice(inputdevice, 48000, AL_FORMAT_MONO16, VOIP_MAX_PACKET_SAMPLES * 4);
+			if (!alCaptureDevice && inputdevice)
 			{
 				Com_Printf("Failed to open OpenAL Input device '%s', trying default.\n", inputdevice);
-				alCaptureDevice = qalcCaptureOpenDevice(NULL, 48000, AL_FORMAT_MONO16, VOIP_MAX_PACKET_SAMPLES*4);
+				alCaptureDevice = qalcCaptureOpenDevice(NULL, 48000, AL_FORMAT_MONO16, VOIP_MAX_PACKET_SAMPLES * 4);
 			}
 #endif
 			Com_Printf("OpenAL capture device %s.\n",

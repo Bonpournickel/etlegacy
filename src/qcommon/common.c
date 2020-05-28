@@ -127,8 +127,6 @@ cvar_t *com_altivec;
 #endif
 cvar_t *cl_paused;
 cvar_t *sv_paused;
-cvar_t *cl_packetdelay;
-cvar_t *sv_packetdelay;
 
 cvar_t *com_motd;
 cvar_t *com_motdString;
@@ -993,7 +991,7 @@ static void Z_ClearZone(memzone_t *zone, int size)
 	// set the entire zone to one free block
 
 	zone->blocklist.next = zone->blocklist.prev = block =
-													  ( memblock_t * )((byte *)zone + sizeof(memzone_t));
+		( memblock_t * )((byte *)zone + sizeof(memzone_t));
 	zone->blocklist.tag  = 1;   // in use block
 	zone->blocklist.id   = 0;
 	zone->blocklist.size = 0;
