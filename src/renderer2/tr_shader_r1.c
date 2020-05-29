@@ -36,15 +36,6 @@
 
 #include "tr_shader.h"
 
-//extern shaderTable_t *shaderTableHashTable[MAX_SHADERTABLE_HASH];
-extern shader_t        shader;
-extern dynamicShader_t *dshader;
-extern shaderTable_t   table;
-extern shaderStage_t   stages[MAX_SHADER_STAGES];
-extern char            implicitMap[MAX_QPATH];
-extern unsigned        implicitStateBits;
-extern cullType_t      implicitCullType;
-
 static char **shaderTextHashTableR1[MAX_SHADERTEXT_HASH];
 static char *s_shaderTextR1;
 

@@ -2232,8 +2232,6 @@ typedef struct
 	int snapshotCount;
 } lagometer_t;
 
-static lagometer_t lagometer;
-
 /**
  * @enum sample_s
  * @typedef sample_t

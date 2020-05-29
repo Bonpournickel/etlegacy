@@ -958,7 +958,7 @@ qboolean FS_MatchFileInPak(const char *filepath, const char *match);
 #define IsPathSep(X) ((X) == '\\' || (X) == '/' || (X) == PATH_SEP)
 
 #if defined(FEATURE_PAKISOLATION) && !defined(DEDICATED)
-const char* DL_ContainerizePath(const char *temp, const char *dest);
+const char *DL_ContainerizePath(const char *temp, const char *dest);
 void FS_InitWhitelist(void);
 qboolean FS_IsWhitelisted(const char *pakName, const char *hash);
 #define FS_CONTAINER "dlcache"
@@ -1079,7 +1079,7 @@ extern cvar_t *com_watchdog_cmd;
 extern cvar_t *cl_paused;
 extern cvar_t *sv_paused;
 
-//cvar_t *cl_packetdelay;
+extern cvar_t *cl_packetdelay;
 extern cvar_t *sv_packetdelay;
 
 // com_speeds times

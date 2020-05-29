@@ -37,18 +37,6 @@
 
 #include "tr_shader.h"
 
-//shaderTable_t *shaderTableHashTable[MAX_SHADERTABLE_HASH];
-shader_t     *shaderHashTable[FILE_HASH_SIZE];
-texModInfo_t texMods[MAX_SHADER_STAGES][TR_MAX_TEXMODS];
-
-shader_t        shader;
-dynamicShader_t *dshader;
-shaderTable_t   table;
-shaderStage_t   stages[MAX_SHADER_STAGES];
-char            implicitMap[MAX_QPATH];
-unsigned        implicitStateBits;
-cullType_t      implicitCullType;
-
 static char **guideTextHashTable[MAX_GUIDETEXT_HASH];
 static char **shaderTextHashTable[MAX_SHADERTEXT_HASH];
 
