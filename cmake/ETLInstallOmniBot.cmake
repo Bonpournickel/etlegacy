@@ -25,6 +25,8 @@ LEG_DOWNLOAD(
 	"${CMAKE_CURRENT_BINARY_DIR}/${MODNAME}/omni-bot"
 )
 
+file(MAKE_DIRECTORY "${INSTALL_DEFAULT_DATADIR}/omni-bot")
+
 message(STATUS "Adding Omni-Bot to installer scripts")
 install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/${MODNAME}/omni-bot/"
 	DESTINATION "${INSTALL_DEFAULT_DATADIR}/omni-bot"
