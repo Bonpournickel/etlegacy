@@ -113,7 +113,7 @@ cvar_t *cl_wavefilename;
 cvar_t *cl_waveoffset;
 
 cvar_t *cl_packetloss;
-extern cvar_t *cl_packetdelay;
+cvar_t *cl_packetdelay;
 
 cvar_t *cl_consoleKeys;
 
@@ -679,7 +679,7 @@ void CL_Disconnect(qboolean showMainMenu)
 	// don't try a restart if uivm is NULL, as we might be in the middle of a restart already
 	if (uivm && cls.state > CA_DISCONNECTED)
 	{
-		// restart the UI	
+		// restart the UI
 		cls.state = CA_DISCONNECTED;
 
 		// shutdown the UI
@@ -688,8 +688,8 @@ void CL_Disconnect(qboolean showMainMenu)
 		// init the UI
 		CL_InitUI();
 	}
-	else	
-	{	
+	else
+	{
 		cls.state = CA_DISCONNECTED;
 	}
 }
